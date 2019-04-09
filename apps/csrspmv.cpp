@@ -167,7 +167,7 @@ int main(int argc, char const *argv[]) {
   // input vector
   denseVector v(cm.getWidth());
   v.fillRandom();
-  std::cerr << "v before: " << std::endl;
+ // std::cerr << "v before: " << std::endl;
   // v.print();
 
   // output vector
@@ -184,14 +184,14 @@ int main(int argc, char const *argv[]) {
 
   // compute a sparse matrix vector multiplication
   auto times = csrm.spmv(handle, v, result);
-  // std::sort(times.begin(), times.end());
-  // if (times.size() % 2) {
-  //   std::cerr << "Median: " << times[times.size() / 2] << std::endl;
-  // } else {
-  //   std::cerr << "Median: " << times[(times.size() + 1) / 2] << std::endl;
-  // }
+  std::sort(times.begin(), times.end());
+  if (times.size() % 2) {
+    std::cerr << "Median time : " << times[times.size() / 2] <<" ms" <<std::endl;
+  } else {
+    std::cerr << "Median time: " << times[(times.size() + 1) / 2] << " ms"<<std::endl;
+  }
 
-  printSqlResult(hostname, devname, mname, exID, table, times);
+  //printSqlResult(hostname, devname, mname, exID, table, times);
 
   // the result
   // std::cerr<<"result after: "<<std::endl;

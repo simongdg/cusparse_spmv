@@ -41,7 +41,7 @@ std::vector<float> csrMatrix::spmv(cusparseHandle_t handle, denseVector& _x, den
     denseVector _y = denseVector(w);
     
 
-    std::cerr<<"_y before: "<<std::endl;
+    //std::cerr<<"_y before: "<<std::endl;
     // _y.print();
 
     std::cerr<<"Starting spmv..."<<std::endl;
@@ -52,7 +52,7 @@ std::vector<float> csrMatrix::spmv(cusparseHandle_t handle, denseVector& _x, den
     float alpha = 1.0;
     float beta = 1.0;
 
-    int iterations = 100;
+    int iterations = 100; //<-----Number of SpMV to perform
 
     float* runtimes = new float[iterations];
     for(int i = 0;i<iterations;i++){
@@ -79,7 +79,7 @@ std::vector<float> csrMatrix::spmv(cusparseHandle_t handle, denseVector& _x, den
     }
 
 
-    std::cerr<<"_y after: "<<std::endl;
+    //std::cerr<<"_y after: "<<std::endl;
     // _y.print();
 
     // copy y into _r;
@@ -466,7 +466,7 @@ float* denseVector::getDevPtr(){
 }
 
 void denseVector::download() {
-    std::cerr<<"Downloading from the device"<<std::endl;
+    //std::cerr<<"Downloading from the device"<<std::endl;
     mstatus = HostOutdated;
     updateBuffers();
 }
@@ -489,7 +489,7 @@ void denseVector::cleanup(){
 
 void denseVector::updateBuffers() {
     if(mstatus == DeviceOutdated) {
-        std::cerr<<"Copying vector to device"<<std::endl;
+        //std::cerr<<"Copying vector to device"<<std::endl;
         // copy from host to device
         cudaError_t mcopy = cudaMemcpy(devPtr, hostPtr, 
                                       (size_t)(n*sizeof(hostPtr[0])),
@@ -500,7 +500,7 @@ void denseVector::updateBuffers() {
             cleanup();
         }   
     }else if(mstatus == HostOutdated) {
-        std::cerr<<"Copying vector to host"<<std::endl;
+        //std::cerr<<"Copying vector to host"<<std::endl;
         // copy from device to host
         cudaError_t mcopy = cudaMemcpy(hostPtr, devPtr, 
                                       (size_t)(n*sizeof(hostPtr[0])),
