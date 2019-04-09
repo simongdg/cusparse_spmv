@@ -3,10 +3,10 @@
 datasetf=$1
 echo "Dataset folder: $datasetf"
 
-spmv=$2
+spmv="./bin/csrspmv" # $2
 echo "SparseMatrixDenseVector excutable: $spmv"
 
-table=$3
+table="Static_Table" #ingnore this for now(Simon)
 echo "Table name: $table"
 
 # Get some unique data for the experiment ID
